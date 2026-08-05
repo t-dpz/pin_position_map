@@ -1,7 +1,7 @@
 <div class="pmw" id="<?= htmlspecialchars($id) ?>">
   <div class="pmw-field">
     <label for="<?= htmlspecialchars($id) ?>-floor">Floor</label>
-    <select id="<?= htmlspecialchars($id) ?>-floor" name="<?= htmlspecialchars($prefix) ?>_floor" class="pmw-floor-select">
+    <select id="<?= htmlspecialchars($id) ?>-floor" class="pmw-floor-select">
       <option value="">Select a floor…</option>
       <?php foreach ($floors as $key => $f): ?>
         <option value="<?= htmlspecialchars((string)$key) ?>" <?= (string)$floor === (string)$key ? 'selected' : '' ?>>
@@ -29,22 +29,16 @@
       <button type="button" class="pmw-zoom-out">−</button>
       <button type="button" class="pmw-zoom-reset">Reset</button>
     </div>
-    <p class="pmw-hint">Click anywhere on the map to place a pin at the issue location.</p>
+    <p class="pmw-hint">Click anywhere on the map to place a pin. It saves automatically.</p>
+    <p class="pmw-status" aria-live="polite"></p>
   </div>
-
-  <input type="hidden"
-         name="<?= htmlspecialchars($prefix) ?>_x"
-         class="pmw-x-input"
-         value="<?= htmlspecialchars($x) ?>"
-         <?= $x !== '' ? 'data-initial="' . htmlspecialchars($x) . '"' : '' ?>>
-  <input type="hidden"
-         name="<?= htmlspecialchars($prefix) ?>_y"
-         class="pmw-y-input"
-         value="<?= htmlspecialchars($y) ?>"
-         <?= $y !== '' ? 'data-initial="' . htmlspecialchars($y) . '"' : '' ?>>
 </div>
 <script>
   PinMapWidget.attachPicker(document.getElementById(<?= json_encode($id) ?>), {
-    baseUrl: <?= json_encode(PIN_WIDGET_BASE_URL) ?>
+    baseUrl: <?= json_encode(PIN_WIDGET_BASE_URL) ?>,
+    issueId: <?= (int)$issueId ?>,
+    floor: <?= json_encode($floor) ?>,
+    x: <?= $x === '' ? 'null' : json_encode((float)$x) ?>,
+    y: <?= $y === '' ? 'null' : json_encode((float)$y) ?>
   });
 </script>

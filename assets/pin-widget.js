@@ -127,47 +127,63 @@ window.PinMapWidget = (function () {
     };
   }
 
-  function attachPicker(root, { baseUrl }) {
+  function attachPicker(root, { baseUrl, issueId, floor, x, y }) {
     const select = root.querySelector('.pmw-floor-select');
     const area   = root.querySelector('.pmw-map-area');
     const canvas = root.querySelector('.pmw-canvas');
-    const xInput = root.querySelector('.pmw-x-input');
-    const yInput = root.querySelector('.pmw-y-input');
-
-    const initialX = xInput.dataset.initial !== undefined ? parseFloat(xInput.dataset.initial) : null;
-    const initialY = yInput.dataset.initial !== undefined ? parseFloat(yInput.dataset.initial) : null;
+    const status = root.querySelector('.pmw-status');
 
     let controls = null;
 
-    async function loadFloor(floor, restore) {
+    function setStatus(text, cls) {
+      if (!status) return;
+      status.textContent = text;
+      status.className = 'pmw-status' + (cls ? ' ' + cls : '');
+    }
+
+    async function save(floorKey, px, py) {
+      setStatus('Saving…');
+      try {
+        const res = await fetch(baseUrl + '/save_location.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            issue_id: issueId,
+            floor: floorKey,
+            x: px.toFixed(8),
+            y: py.toFixed(8),
+          }),
+        });
+        if (!res.ok) throw new Error('save failed');
+        setStatus('Location saved.', 'pmw-status-ok');
+      } catch (e) {
+        setStatus('Could not save the location — try again.', 'pmw-status-error');
+      }
+    }
+
+    async function loadFloor(floorKey, restore) {
       area.style.display = 'block';
       controls = null;
-      xInput.value = '';
-      yInput.value = '';
+      setStatus('');
 
-      await renderPdf(canvas, baseUrl + '/map.php?floor=' + encodeURIComponent(floor));
+      await renderPdf(canvas, baseUrl + '/map.php?floor=' + encodeURIComponent(floorKey));
 
       controls = initZoomPan(root, {
         interactive: true,
-        onPick(x, y) {
-          xInput.value = x.toFixed(8);
-          yInput.value = y.toFixed(8);
-          controls.setPin(x, y);
+        onPick(px, py) {
+          controls.setPin(px, py);
+          save(floorKey, px, py);
         },
       });
 
-      if (restore && initialX !== null && initialY !== null) {
-        controls.setPin(initialX, initialY);
-        xInput.value = initialX.toFixed(8);
-        yInput.value = initialY.toFixed(8);
+      if (restore && x !== null && y !== null) {
+        controls.setPin(x, y);
       }
     }
 
     select.addEventListener('change', () => {
       if (!select.value) {
         area.style.display = 'none';
-        xInput.value = '';
-        yInput.value = '';
         return;
       }
       loadFloor(select.value, false);

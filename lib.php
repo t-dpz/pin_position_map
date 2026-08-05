@@ -41,13 +41,14 @@ function pin_emit_assets_once(): void {
     echo '<script src="' . htmlspecialchars($base) . "/assets/pin-widget.js\"></script>\n";
 }
 
-function pin_render_picker(array $opts = []): void {
-    $id     = $opts['id'] ?? 'pin-picker';
-    $prefix = $opts['field_prefix'] ?? 'location';
-    $floor  = (string)($opts['floor'] ?? '');
-    $x      = (string)($opts['x'] ?? '');
-    $y      = (string)($opts['y'] ?? '');
-    $floors = pin_floors();
+function pin_render_picker(array $opts): void {
+    $id       = $opts['id'] ?? 'pin-picker';
+    $issueId  = (int)$opts['issue_id'];
+    $existing = pin_get_location($issueId);
+    $floor    = (string)($opts['floor'] ?? ($existing['floor'] ?? ''));
+    $x        = (string)($opts['x'] ?? ($existing['pin_x'] ?? ''));
+    $y        = (string)($opts['y'] ?? ($existing['pin_y'] ?? ''));
+    $floors   = pin_floors();
 
     pin_emit_assets_once();
     require __DIR__ . '/partials/picker.php';

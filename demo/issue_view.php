@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status'])) {
 }
 
 $loc = pin_get_location($id);
+$msg = $_GET['msg'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,6 +38,10 @@ $loc = pin_get_location($id);
     <h1><?= htmlspecialchars($issue['title']) ?></h1>
     <a href="issue_list.php" class="btn btn-ghost btn-sm">&larr; All issues</a>
   </div>
+
+  <?php if ($msg === 'created'): ?>
+    <div class="alert alert-ok">Issue created. Add a location below so it can be found later.</div>
+  <?php endif; ?>
 
   <div class="two-col">
     <div>
@@ -67,7 +72,12 @@ $loc = pin_get_location($id);
 
     <div>
       <div class="card">
-        <h2>Location</h2>
+        <div class="flex-between" style="margin-bottom:.75rem">
+          <h2 style="margin-bottom:0">Location</h2>
+          <a href="issue_location.php?id=<?= $issue['id'] ?>" class="btn btn-ghost btn-sm">
+            <?= $loc ? 'Edit location' : '+ Add location' ?>
+          </a>
+        </div>
         <?php if ($loc): ?>
           <?php pin_render_viewer(['floor' => $loc['floor'], 'x' => $loc['pin_x'], 'y' => $loc['pin_y']]); ?>
         <?php else: ?>

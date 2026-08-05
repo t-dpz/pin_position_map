@@ -66,3 +66,7 @@
 .pmw-zoom-pct { font-size: .8rem; color: #666; min-width: 3.4em; text-align: center; }
 
 .pmw-hint { font-size: .82rem; color: #555; margin-top: .4rem; }
+
+.pmw-status { font-size: .78rem; color: #666; margin-top: .3rem; min-height: 1.1em; }
+.pmw-status-ok { color: #1a6b28; }
+.pmw-status-error { color: #c92a2a; }
