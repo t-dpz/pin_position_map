@@ -40,7 +40,7 @@ $msg = $_GET['msg'] ?? '';
   </div>
 
   <?php if ($msg === 'created'): ?>
-    <div class="alert alert-ok">Issue created. Add a location below so it can be found later.</div>
+    <div class="alert alert-ok">Issue created successfully.</div>
   <?php endif; ?>
 
   <div class="two-col">
@@ -72,12 +72,7 @@ $msg = $_GET['msg'] ?? '';
 
     <div>
       <div class="card">
-        <div class="flex-between" style="margin-bottom:.75rem">
-          <h2 style="margin-bottom:0">Location</h2>
-          <a href="issue_location.php?id=<?= $issue['id'] ?>" class="btn btn-ghost btn-sm">
-            <?= $loc ? 'Edit location' : '+ Add location' ?>
-          </a>
-        </div>
+        <h2>Location</h2>
         <?php if ($loc): ?>
           <?php pin_render_viewer(['floor' => $loc['floor'], 'x' => $loc['pin_x'], 'y' => $loc['pin_y']]); ?>
         <?php else: ?>
