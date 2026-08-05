@@ -1,15 +1,10 @@
-/**
- * PinMapWidget — renders a floor-plan PDF onto a canvas with zoom/pan, and
- * either lets the user click to drop a pin (picker) or displays a fixed pin
- * read-only (viewer). Shared by partials/picker.php and partials/viewer.php.
- */
 window.PinMapWidget = (function () {
   'use strict';
 
   const PDFJS_WORKER_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-  const RENDER_SCALE = 2;   // resolution the PDF page is rasterised at
+  const RENDER_SCALE = 2;
   const ZOOM_MIN = 1, ZOOM_MAX = 8, ZOOM_STEP = 1.3, DRAG_THRESHOLD = 4;
-  const VIEWER_INITIAL_ZOOM = 3; // start zoomed in on the pin; user can zoom out for context
+  const VIEWER_INITIAL_ZOOM = 3;
 
   let workerReady = false;
   function ensureWorker() {
@@ -95,7 +90,7 @@ window.PinMapWidget = (function () {
     window.addEventListener('mouseup', () => {
       if (!dragging) return;
       dragging = false;
-      apply(); // restore cursor
+      apply();
     });
 
     if (interactive) {

@@ -32,12 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Report an issue — location_picker demo</title>
+<title>Report an issue — Pin location demo</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <header>
-  <span class="brand">location_picker demo</span>
+  <span class="brand">Pin location demo</span>
   <a href="issue_new.php">Report issue</a>
   <a href="issue_list.php">Issue list</a>
 </header>

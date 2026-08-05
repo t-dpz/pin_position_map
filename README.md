@@ -1,9 +1,9 @@
-# location_picker
+# pin
 
-Plug-and-play "pin an issue's location on a floor plan" component, extracted
-from `pin_position_map` and simplified for embedding into an existing issue
-tracker. No GPS/geolocation — just: pick a floor, click a point on its PDF
-plan, store `(floor, x, y)` against your issue id.
+Plug-and-play "pin an issue's location on a floor plan" component, for
+embedding into an existing issue tracker. No GPS/geolocation — just: pick a
+floor, click a point on its PDF plan, store `(floor, x, y)` against your
+issue id.
 
 Live demo: `demo/issue_list.php` (start there — links to the report form and
 issue detail pages). Read `demo/issue_new.php` and `demo/issue_view.php`
@@ -12,9 +12,10 @@ alongside this file — they are the two snippets below, in full, wired up.
 ## How it works
 
 - `config.php` maps a **floor number** (whatever key you want to store, e.g.
-  `"1"`) to a **label** (`"Verdieping 1"`) and a **PDF filename** in
-  `/pin/maps`. This is the only file you should need to edit when floors
-  change — see [Editing the floor list](#editing-the-floor-list).
+  `"1"`) to a **label** (`"Verdieping 1"`) and a **PDF filename** in the
+  `maps/` folder (next to this README). This is the only file you should
+  need to edit when floors change — see
+  [Editing the floor list](#editing-the-floor-list).
 - `map.php` streams the right PDF for a floor. The floor plan is rendered
   client-side with pdf.js, so there's no server-side rasterisation step and
   no re-upload/pre-processing when a PDF changes — just replace the file.
@@ -30,7 +31,7 @@ alongside this file — they are the two snippets below, in full, wired up.
 Everything below assumes:
 
 ```php
-require '/var/www/playground/pin/location_picker/lib.php';
+require '/var/www/playground/pin/lib.php';
 ```
 
 at the top of your PHP file (adjust the path if you copy the folder
@@ -155,10 +156,9 @@ Open `config.php`. Each entry is:
 ## Notes / things a real integration should decide
 
 - `PIN_WIDGET_BASE_URL` in `config.php` must match wherever this folder is
-  served from (defaults to `/pin/location_picker`, matching this repo's
-  layout under the `playground.404.gent` document root). Both the input
-  and reporting sides load `assets/pin-widget.js`/`.css` and hit
-  `map.php` at that URL.
+  served from (defaults to `/pin`, matching this repo's layout under the
+  `playground.404.gent` document root). Both the input and reporting sides
+  load `assets/pin-widget.js`/`.css` and hit `map.php` at that URL.
 - `pin_render_picker()`/`pin_render_viewer()` each pull in the widget's CSS
   and pdf.js once per page automatically — safe to call both (or several
   pickers/viewers) on the same page.

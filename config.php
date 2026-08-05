@@ -1,13 +1,12 @@
 <?php
-
 define('PIN_DB_HOST', '127.0.0.1');
 define('PIN_DB_NAME', 'webdev');
 define('PIN_DB_USER', 'dev');
 define('PIN_DB_PASS', 'devpw');
 
-define('PIN_MAPS_DIR', dirname(__DIR__) . '/maps');
+define('PIN_MAPS_DIR', __DIR__ . '/maps');
 
-define('PIN_WIDGET_BASE_URL', '/pin/location_picker');
+define('PIN_WIDGET_BASE_URL', '/pin');
 
 return [
     '0'  => ['label' => 'Verdieping 0',  'file' => '404_plan_software-0.pdf',  'enabled' => true],
