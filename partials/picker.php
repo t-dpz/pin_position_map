@@ -16,9 +16,16 @@
       <div class="pmw-canvas-wrap">
         <canvas class="pmw-canvas"></canvas>
         <div class="pmw-pin" hidden>
-          <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="14" cy="11" r="8" fill="#3b5bdb" stroke="#fff" stroke-width="2"/>
-            <line x1="14" y1="19" x2="14" y2="27" stroke="#3b5bdb" stroke-width="2.5"/>
+          <svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="pmw-pin-grad-<?= htmlspecialchars($id) ?>" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#6c8bff"/>
+                <stop offset="100%" stop-color="#3b5bdb"/>
+              </linearGradient>
+            </defs>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 9 12 20 12 20s12-11 12-20C24 5.373 18.627 0 12 0z"
+                  fill="url(#pmw-pin-grad-<?= htmlspecialchars($id) ?>)" stroke="#fff" stroke-width="1.5"/>
+            <circle cx="12" cy="12" r="4.5" fill="#fff"/>
           </svg>
         </div>
       </div>

@@ -45,6 +45,7 @@ window.PinMapWidget = (function () {
       canvasWrap.style.transform = 'translate(' + panX + 'px,' + panY + 'px) scale(' + zoom + ')';
       if (pctEl) pctEl.textContent = Math.round(zoom * 100) + '%';
       wrapper.style.cursor = zoom > 1 ? 'grab' : (interactive ? 'crosshair' : 'default');
+      pin.style.setProperty('--pin-scale', 1 / zoom);
     }
 
     function zoomTo(newZoom, pivotX, pivotY) {
