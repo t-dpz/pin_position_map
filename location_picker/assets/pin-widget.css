@@ -1,0 +1,70 @@
+/* Namespaced under .pmw so this can be dropped into any host page's CSS. */
+
+.pmw { font-family: system-ui, -apple-system, sans-serif; font-size: 15px; color: #1a1a2e; }
+
+.pmw-field { margin-bottom: .6rem; }
+.pmw-field label { display: block; font-size: .85rem; font-weight: 600; margin-bottom: .3rem; }
+.pmw-floor-select {
+  width: 100%;
+  max-width: 320px;
+  padding: .45rem .65rem;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: .9rem;
+  font-family: inherit;
+}
+
+.pmw-floor-label { font-size: .85rem; color: #555; margin-bottom: .5rem; }
+.pmw-floor-unknown { color: #c92a2a; }
+
+.pmw-wrapper {
+  position: relative;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  line-height: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  background: #fafafa;
+}
+.pmw-canvas-wrap {
+  position: relative;
+  display: block;
+  width: 100%;
+  transform-origin: 0 0;
+  line-height: 0;
+}
+.pmw-canvas-wrap canvas { width: 100%; display: block; }
+
+.pmw-pin {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,.4));
+}
+.pmw-pin svg { width: 28px; height: 28px; }
+
+.pmw-zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  margin-top: .5rem;
+}
+.pmw-zoom-controls button {
+  padding: .3rem .65rem;
+  font-size: .8rem;
+  font-weight: 600;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: transparent;
+  color: #444;
+  cursor: pointer;
+}
+.pmw-zoom-controls button:hover { background: #f0f0f0; }
+.pmw-zoom-pct { font-size: .8rem; color: #666; min-width: 3.4em; text-align: center; }
+
+.pmw-hint { font-size: .82rem; color: #555; margin-top: .4rem; }

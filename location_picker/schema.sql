@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS pin_locations (
+    id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    issue_id   INT UNSIGNED NOT NULL,
+    floor      VARCHAR(20) NOT NULL,
+    pin_x      DECIMAL(10,8) NOT NULL,
+    pin_y      DECIMAL(10,8) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uniq_issue (issue_id)
+);
